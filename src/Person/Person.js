@@ -10,6 +10,12 @@ const person = (props) => {
         marginBottom: '15px',
     }
 
+    const rnd = Math.random();
+
+    if ( rnd > 0.7 ) {
+        throw new Error( 'Something went wrong' );
+    }
+
     return (
         <div className={classes.Person}>
             <p>I'm a {props.name} and I am {props.age} years old!</p>
