@@ -1,10 +1,11 @@
 import React from 'react';
+import Aux from '../../hocomponent/Auxible'
 
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
     const assignedClasses = [];
-    const btnClass = props.showPersons ? classes.Red : '';    
+    const btnClass = props.showPersons ? [classes.Button, classes.Red].join(' ') : classes.Button;    
 
     if (props.persons.length <= 2) {
       assignedClasses.push( classes.red );
@@ -15,13 +16,13 @@ const cockpit = (props) => {
     }
 
     return (
-        <div className={classes.Cockpit}>
+        <Aux>
             <h1>{ props.appTitle }</h1>
             <p className={assignedClasses.join(' ')}>Hello</p>
             <button 
-            className={btnClass}
-            onClick={props.clicked}>Toggle Persons</button> 
-        </div>
+                className={btnClass}
+                onClick={props.clicked}>Toggle Persons</button> 
+        </Aux>
     );
 };
 
