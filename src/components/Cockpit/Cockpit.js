@@ -1,5 +1,5 @@
 import React from 'react';
-import Aux from '../../hocomponent/Auxible'
+import Aux from '../../hoc/Auxible'
 
 import classes from './Cockpit.css';
 

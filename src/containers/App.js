@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import withClass from '../hoc/WithClass';
+import Aux from '../hoc/Auxible';
+
 import classes from './App.css';
 
 class App extends PureComponent {
@@ -9,12 +12,13 @@ class App extends PureComponent {
     console.log('[App.js] Inside constructor', props);
     this.state = {
       persons: [
-        { id: 'dasd1', name: 'Michel', age:'23' },
-        { id: 'dczx2', name: 'Rudik', age: '22' },
-        { id: 'xcvb3', name: 'Gora', age: '25' }
+        { id: 'dasd1', name: 'Michel', age:23 },
+        { id: 'dczx2', name: 'Rudik', age: 22 },
+        { id: 'xcvb3', name: 'Gora', age: 25 }
       ],
       framework: ['Vue', 'React', 'Angular'],
-      showPersons: false
+      showPersons: false,
+      toggleClicked: 0
     }
   }
 
@@ -70,9 +74,13 @@ class App extends PureComponent {
   togglePersonsHandler = (event) => {
     const doesPerson = this.state.showPersons;
 
-    this.setState({
-      showPersons: !doesPerson
-    })
+    this.setState( (prevState, props) => {
+      return {
+        showPersons: !doesPerson,
+        toggleClicked: prevState.toggleClicked + 1
+      }
+      
+    } );
   }
 
   render() {
@@ -87,7 +95,7 @@ class App extends PureComponent {
     }    
 
     return (
-      <div className={classes.App}>
+      <Aux>
         <button onClick={() => {this.setState({showPersons:true})}}>
           show Persons
         </button>
@@ -97,10 +105,10 @@ class App extends PureComponent {
           persons={this.state.persons}
           clicked={this.togglePersonsHandler} />
         {persons}
-      </div>    
+      </Aux>
     );
     // return React.createElement('div', { className: 'App', }, React.createElement('h1', null, 'Hello, I\'m your first React App!'));
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
