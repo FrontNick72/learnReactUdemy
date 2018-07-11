@@ -6,6 +6,8 @@ import Aux from '../hoc/Auxible';
 
 import classes from './App.css';
 
+export const AuthContext = React.createContext(false);
+
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -18,7 +20,8 @@ class App extends PureComponent {
       ],
       framework: ['Vue', 'React', 'Angular'],
       showPersons: false,
-      toggleClicked: 0
+      toggleClicked: 0,
+      authenticated: false
     }
   }
 
@@ -83,6 +86,10 @@ class App extends PureComponent {
     } );
   }
 
+  loginHandler = () => {
+    this.setState({authenticated: true});
+  }
+
   render() {
     console.log('[App.js] Inside render()'); 
     let persons = null;    
@@ -102,9 +109,12 @@ class App extends PureComponent {
         <Cockpit 
           appTitle={this.props.title}
           showPersons={this.state.showPersons}
+          login={this.loginHandler}
           persons={this.state.persons}
           clicked={this.togglePersonsHandler} />
-        {persons}
+        <AuthContext.Provider value={this.state.authenticated}>
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
     // return React.createElement('div', { className: 'App', }, React.createElement('h1', null, 'Hello, I\'m your first React App!'));
